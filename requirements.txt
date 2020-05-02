@@ -1,3 +1,4 @@
+celery==4.4.2
 Django==2.2.10
 django-anymail==6.0
 django-cors-headers==3.0.1
