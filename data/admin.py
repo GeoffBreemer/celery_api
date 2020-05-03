@@ -15,8 +15,9 @@ class MedicalReportAdmin(admin.ModelAdmin):
             self, request, queryset: QuerySet
         ) -> None:
         for mr in queryset:
-            add_to_report.apply_async((mr.id, "- more content 10s"), countdown=10)
+             add_to_report.apply_async((mr.id, "- more content 10s"), countdown=10)
             # add_to_report.delay(mr_id=mr.id, content="- more content immediate")
             # add_to_report(mr_id=mr.id, content="- more content async")
+
 
         self.message_user(request=request, message=f"Update requested 10 seconds from now", level=SUCCESS)
