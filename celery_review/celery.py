@@ -7,7 +7,16 @@ from celery import Celery
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_review.settings')
 
-app = Celery('celery_review')
+
+class MyCelery(Celery):
+    def gen_task_name(self, name, module):
+        """Changes automatic task naming by removing '.tasks'."""
+        if module.endswith('.tasks'):
+            module = module[:-6]
+
+        return super(MyCelery, self).gen_task_name(name, module)
+
+app = MyCelery('celery_review')
 
 # Using a string here means the worker doesn't have to serialize
 # the configuration object to child processes.
